@@ -1,3 +1,5 @@
+// ubic.sisi.com
+
 // 프로젝트의 플러그인 의존성 관리를 위한 설정
 buildscript {
     ext { // ext 키워드는 build.gradle 에서 사용하는
