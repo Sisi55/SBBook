@@ -2,12 +2,16 @@ package com.sisi.ubic.service.posts;
 
 import com.sisi.ubic.domain.posts.Posts;
 import com.sisi.ubic.domain.posts.PostsRepository;
+import com.sisi.ubic.web.dto.PostsListResponseDto;
 import com.sisi.ubic.web.dto.PostsResponseDto;
 import com.sisi.ubic.web.dto.PostsSaveRequestDto;
 import com.sisi.ubic.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,5 +39,12 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id="+id));
 
         return new PostsResponseDto(entity);
+    }
+
+    @Transactional(readOnly=true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
